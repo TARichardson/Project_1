@@ -58,7 +58,7 @@ namespace TARichardsonProject1.Controllers
             //var users = db.Users.Include(u => u.Role);
 
             return View(user);
-            //return RedirectToAction("Details", routeValues: "UsersController");
+            //return RedirectToAction("Details","Users");
         }
 
         public ActionResult Overview()

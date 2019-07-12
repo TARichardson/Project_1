@@ -62,6 +62,8 @@ namespace TARichardsonProject1.Controllers
                 tf.CurrentUser = user;
                 tf.CurrentCustomer = cus;
                 tf.FromAccount = account;
+                Session["CustomerID"] = cus.CustomerID.ToString();
+                Session["From"] = account.AccountID.ToString();
 
                 ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
                 ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
@@ -76,11 +78,93 @@ namespace TARichardsonProject1.Controllers
         [HttpPost]
         public ActionResult Withdraw(TransferRepo trepo)
         {
-            decimal? sum = trepo.ToAccount.Balances;
-            
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
-            ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
-            return View();
+            try
+            {
+                decimal? sum = trepo.ToAccount.Balances;
+                string uid = Session["From"].ToString();
+                var cu = db.Accounts.Find(Int32.Parse(uid));
+                decimal? oldBalances = cu.Balances;
+                cu.Balances -= sum;
+                ttype = db.TransactionTypes.Where(ty => ty.TransactionName == "WDW").FirstOrDefault();
+                cu.Transactions.Add(new Transaction()
+                {
+                    TransTypeID = ttype.TransactionID,
+                    Date = DateTime.UtcNow,
+                    Log = $"Withdrawal of ${sum} from ${oldBalances} | New Balances ${cu.Balances}"
+
+                });
+                db.SaveChanges();
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                string uid = Session["From"].ToString();
+
+                return RedirectToAction("Withdraw", Int32.Parse(uid));
+
+            }
+
+        }
+        public ActionResult Deposit(int? id)
+        {
+            try
+            {
+                string uid = Session["UserID"].ToString();
+                User user = db.Users.Find(Int32.Parse(uid));
+                var cus = db.Customers.Where(cusq => cusq.UserID == user.UserID).FirstOrDefault();
+                Account account = db.Accounts.Find(id);
+                if (account == null || user == null)
+                {
+                    return HttpNotFound();
+                }
+                tf.CurrentUser = user;
+                tf.CurrentCustomer = cus;
+                tf.FromAccount = account;
+                Session["CustomerID"] = cus.CustomerID.ToString();
+                Session["From"] = account.AccountID.ToString();
+
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return View(tf);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Deposit(TransferRepo trepo)
+        {
+            try
+            {
+                decimal? sum = trepo.ToAccount.Balances;
+                string uid = Session["From"].ToString();
+                var cu = db.Accounts.Find(Int32.Parse(uid));
+                decimal? oldBalances = cu.Balances;
+                cu.Balances += sum;
+                ttype = db.TransactionTypes.Where(ty => ty.TransactionName == "DPS").FirstOrDefault();
+                cu.Transactions.Add(new Transaction()
+                {
+                    TransTypeID = ttype.TransactionID,
+                    Date = DateTime.UtcNow,
+                    Log = $"Deposit of ${sum} from ${oldBalances} | New Balances ${cu.Balances}"
+
+                });
+                db.SaveChanges();
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                string uid = Session["From"].ToString();
+
+                return RedirectToAction("Deposit", Int32.Parse(uid));
+
+            }
+
         }
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
