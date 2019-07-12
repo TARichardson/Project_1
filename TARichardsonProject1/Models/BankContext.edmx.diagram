@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eb33b04fb84d4bd99d2a923bc0399e0a" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineBankingDBModel.Account" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.AccountType" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.Customer" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.LoanAccount" Width="1.5" PointX="9.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.Role" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.TermAccount" Width="1.5" PointX="9.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.Transaction" Width="1.5" PointX="12.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.TransactionType" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineBankingDBModel.User" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Accounts__Custom__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Accounts__TypeID__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__LoanAccou__Accou__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__TermAccou__Accou__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Transacti__Accou__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Customers__UserI__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Users__RoleID__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineBankingDBModel.FK__Transacti__Trans__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

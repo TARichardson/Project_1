@@ -1,0 +1,90 @@
+﻿@model TARichardsonProject1.Models.Account
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndingBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndingBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountOpenDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountOpenDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginningStatment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginningStatment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextStatment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextStatment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountType.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountType.TypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TARichardsonProject1.Models.LoanAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoanAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoanTransfered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Account.AccountID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanTransfered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account.AccountID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoanAccountID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LoanAccountID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LoanAccountID })
+        </td>
+    </tr>
+}
+
+</table>

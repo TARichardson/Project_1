@@ -1,0 +1,42 @@
+﻿@model TARichardsonProject1.Models.LoanAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoanAccount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanTransfered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanTransfered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.AccountID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.AccountID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LoanAccountID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

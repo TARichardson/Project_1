@@ -1,0 +1,50 @@
+﻿@model TARichardsonProject1.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Log)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Log)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.AccountID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.AccountID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionType.TransactionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionType.TransactionName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

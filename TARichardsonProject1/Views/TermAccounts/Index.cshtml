@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TARichardsonProject1.Models.TermAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfMaturity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Account.AccountID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfMaturity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account.AccountID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TermAccountID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TermAccountID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TermAccountID })
+        </td>
+    </tr>
+}
+
+</table>

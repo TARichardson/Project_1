@@ -1,0 +1,34 @@
+﻿@model TARichardsonProject1.Models.TermAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TermAccount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfMaturity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfMaturity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.AccountID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.AccountID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TermAccountID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

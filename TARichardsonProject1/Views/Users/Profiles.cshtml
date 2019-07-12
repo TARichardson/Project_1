@@ -1,0 +1,76 @@
+﻿@model TARichardsonProject1.Models.UserRepo
+@{
+    ViewBag.Title = "Profile" + ViewBag.ID;
+    Layout = "../Shared/_OverviewLayout.cshtml";
+
+}
+
+<h2>Profile</h2>
+
+@if (Model != null)
+{
+    if (@Model.CurrentUser != null)
+    {
+        <div>
+            <h4>User</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(Model => Model.CurrentUser.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(Model => Model.CurrentUser.UserName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(Model => Model.CurrentUser.Password)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(Model => Model.CurrentUser.Password)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(Model => Model.CurrentUser.Role.RoleName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(Model => Model.CurrentUser.Role.RoleName)
+                </dd>
+
+            </dl>
+        </div>
+
+
+
+    }
+    if (@Model.CurrentCustomer != null)
+    {
+        <div>
+            <h4>Customer Info</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentCustomer.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentCustomer.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentCustomer.LastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentCustomer.LastName)
+                </dd>
+            </dl>
+        </div>
+    }
+}
+else
+{
+    <h2>No Profile Found</h2>
+}
