@@ -15,6 +15,7 @@ namespace TARichardsonProject1.Controllers
         private OnlineBankingDBEntities db = new OnlineBankingDBEntities();
         private TransactionType ttype;
         private AccountType atype;
+        private TransferRepo tf = new TransferRepo();
 
 
         // GET: Accounts
@@ -46,7 +47,41 @@ namespace TARichardsonProject1.Controllers
             ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
             return View();
         }
+        public ActionResult Withdraw(int? id)
+        {
+            try
+            {
+                string uid = Session["UserID"].ToString();
+                User user = db.Users.Find(Int32.Parse(uid));
+                var cus = db.Customers.Where(cusq => cusq.UserID == user.UserID).FirstOrDefault();
+                Account account = db.Accounts.Find(id);
+                if (account == null || user == null)
+                {
+                    return HttpNotFound();
+                }
+                tf.CurrentUser = user;
+                tf.CurrentCustomer = cus;
+                tf.FromAccount = account;
 
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return View(tf);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Withdraw(TransferRepo trepo)
+        {
+            decimal? sum = trepo.ToAccount.Balances;
+            
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+            ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+            return View();
+        }
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -145,7 +180,7 @@ namespace TARichardsonProject1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AccountID,TypeID,InterestRate,StartingBalance,EndingBalance,AccountOpenDate,BeginningStatment,NextStatment,Balances,CustomerID")] Account account)
+        public ActionResult Edit([Bind(Include = "AccountID,TypeID,InterestRate,StartingBalance,EndingBalance,AccountOpenDate,BeginningStatment,NextStatment,Balances,CustomerID")] Account account, Account account2)
         {
             if (ModelState.IsValid)
             {

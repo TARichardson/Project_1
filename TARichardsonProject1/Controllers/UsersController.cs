@@ -99,22 +99,21 @@ namespace TARichardsonProject1.Controllers
         [HttpPost]
         public ActionResult Login([Bind(Include = "UserID,UserName,Password,RoleID")] User user)
         {
-            string userName = "TroyRic222";
-            //if (userName == "" || password == "")
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //var user = db.Users.SqlQuery("select * from Users where UserName = @firstName AND Password = @password").FirstOrDefault<User>();
-            string query = "select * from Users where UserName=\'" + userName + "\'";
-            var user2 = db.Users.SqlQuery(query).FirstOrDefault<User>();
+    
+            try {
+            
+            var user2 = db.Users.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
+            //string query = "select * from Users where UserName=\'" + userName + "\'";
+            //var user2 = db.Users.SqlQuery(query).FirstOrDefault<User>();
 
-            //if (user == null)
-            //{
-            //    return HttpNotFound();
-            //}
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName", user2.RoleID);
             Session["UserID"] = user2.UserID.ToString();
             return RedirectToAction("Profiles");
+        }
+            catch (Exception)
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         // POST: Users/Edit/5

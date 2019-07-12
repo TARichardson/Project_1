@@ -254,6 +254,7 @@
     <Compile Include="Models\Transaction.cs">
       <DependentUpon>BankContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TransferRepo.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>BankContext.tt</DependentUpon>
     </Compile>
@@ -349,6 +350,7 @@
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Home\Overview.cshtml" />
     <Content Include="Views\Shared\_OverviewLayout.cshtml" />
+    <Content Include="Views\Accounts\Withdraw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
