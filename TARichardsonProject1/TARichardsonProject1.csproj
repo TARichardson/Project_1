@@ -352,6 +352,8 @@
     <Content Include="Views\Shared\_OverviewLayout.cshtml" />
     <Content Include="Views\Accounts\Withdraw.cshtml" />
     <Content Include="Views\Accounts\Deposit.cshtml" />
+    <Content Include="Views\Home\Transfer.cshtml" />
+    <Content Include="Views\Accounts\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

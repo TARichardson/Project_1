@@ -166,6 +166,83 @@ namespace TARichardsonProject1.Controllers
             }
 
         }
+        public ActionResult Transfer(int? id)
+        {
+            try
+            {
+                string uid = Session["UserID"].ToString();
+                User user = db.Users.Find(Int32.Parse(uid));
+                var cus = db.Customers.Where(cusq => cusq.UserID == user.UserID).FirstOrDefault();
+                Account account = db.Accounts.Find(id);
+                if (account == null || user == null)
+                {
+                    return HttpNotFound();
+                }
+                tf.CurrentUser = user;
+                tf.CurrentCustomer = cus;
+                tf.FromAccount = account;
+                Session["CustomerID"] = cus.CustomerID.ToString();
+               // Session["From"] = account.AccountID.ToString();
+                Session["To"] = id.ToString();
+
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return View(tf);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Transfer(TransferRepo trepo)
+        {
+            try
+            {
+                decimal? sum = trepo.ToAccount.Balances;
+                string uid = Session["From"].ToString();
+                var cu = db.Accounts.Find(Int32.Parse(uid));
+
+                string uid2 = Session["To"].ToString();
+                var cu2 = db.Accounts.Find(Int32.Parse(uid2));
+
+                decimal? oldBalances = cu.Balances;
+                cu.Balances += sum;
+                ttype = db.TransactionTypes.Where(ty => ty.TransactionName == "DPS").FirstOrDefault();
+                cu.Transactions.Add(new Transaction()
+                {
+                    TransTypeID = ttype.TransactionID,
+                    Date = DateTime.UtcNow,
+                    Log = $"Deposit of ${sum} from ${oldBalances} | New Balances ${cu.Balances}"
+
+                });
+
+                decimal? oldBalances2 = cu2.Balances;
+                cu2.Balances -= sum;
+                ttype = db.TransactionTypes.Where(ty => ty.TransactionName == "TRF").FirstOrDefault();
+                cu2.Transactions.Add(new Transaction()
+                {
+                    TransTypeID = ttype.TransactionID,
+                    Date = DateTime.UtcNow,
+                    Log = $"Transfer of ${sum} from ${oldBalances2} | New Balances ${cu2.Balances}"
+
+                });
+
+                db.SaveChanges();
+                ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+                ViewBag.TypeID = new SelectList(db.AccountTypes, "TypeID", "TypeName");
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                string uid = Session["From"].ToString();
+
+                return RedirectToAction("Transfer", Int32.Parse(uid));
+
+            }
+
+        }
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

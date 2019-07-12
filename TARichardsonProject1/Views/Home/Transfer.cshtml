@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TARichardsonProject1.Models.Account>
+
+@{
+    ViewBag.Title = "Transfer";
+}
+
+<h2>Transfer From</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountType.TypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Balances)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.AccountType.TypeName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.InterestRate)
+    </td>
+
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Balances)
+    </td>
+
+
+    <td>
+        @Html.ActionLink("Transfer","Transfer", "Accounts", new { id = item.AccountID },"") |
+    
+    </td>
+</tr>
+}
+
+</table>

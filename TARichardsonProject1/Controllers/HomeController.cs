@@ -126,15 +126,6 @@ namespace TARichardsonProject1.Controllers
                     ur.CurrentUser = null;
                 }
 
-
-
-
-                //string query = "select * from Customers where UserID=2";
-
-                //var cus = db.Customers.SqlQuery(query).FirstOrDefault<Customer>();
-                //ur.CurrentUser = user;
-                //ur.CurrentCustomer = cus;
-                //return View(ur);
                 ViewBag.ID = id;
                 return View(ur.CurrentCustomer.Accounts);
             }
@@ -142,6 +133,81 @@ namespace TARichardsonProject1.Controllers
             catch (Exception)
             {
                 return View(ur.CurrentCustomer.Accounts);
+            }
+        }
+        public ActionResult Transfer(int? id)
+        {
+            try
+            {
+                string uid = Session["UserID"].ToString();
+                Session["From"] = id.ToString();
+
+                if (uid == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                try
+                {
+                    User user = db.Users.Find(Int32.Parse(uid));
+
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    ur.CurrentUser = user;
+                    try
+                    {
+                        // string query = "select * from Customers where UserID=2";
+
+                        //var cus = db.Customers.SqlQuery(query).FirstOrDefault<Customer>();
+                        var cus = db.Customers.Where(cusq => cusq.UserID == user.UserID).FirstOrDefault();
+                        if (cus == null)
+                        {
+                            return HttpNotFound();
+                        }
+
+                        ur.CurrentCustomer = cus;
+                        try
+                        {
+                            //string queryAc = "select * from Accounts where UserID=2";
+
+                            var la = db.Accounts.Where(acc => acc.CustomerID == cus.CustomerID).Include((u => u.LoanAccounts)).Include(u => u.TermAccounts).ToList();
+
+                            if (la == null)
+                            {
+                                return HttpNotFound();
+                            }
+
+                            ur.CurrentCustomer.Accounts = la;
+                            return View(ur.CurrentCustomer.Accounts);
+
+
+                        }
+                        catch (Exception)
+                        {
+                            ur.CurrentCustomer = null;
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        ur.CurrentCustomer = null;
+                    }
+
+                }
+                catch (Exception)
+                {
+                    ur.CurrentUser = null;
+                }
+
+                ViewBag.ID = id;
+                return View(ur.CurrentCustomer.Accounts);
+            }
+
+            catch (Exception)
+            {
+                return View("Overview");
             }
         }
 

@@ -1,0 +1,44 @@
+﻿@model TARichardsonProject1.Models.TransferRepo
+@{
+    ViewBag.Title = "Transfer from sum";
+    Layout = "../Shared/_OverviewLayout.cshtml";
+
+}
+
+<h2>Transfer from sum</h2>
+
+@if (Model != null)
+{
+    if (@Model.CurrentUser != null && Model.CurrentCustomer != null && Model.FromAccount != null)
+    {
+        <div>
+            <h2>Details</h2>
+
+            <h4>Sum to Transfer</h4>
+            @using (Html.BeginForm())
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ToAccount.Balances, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ToAccount.Balances, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ToAccount.Balances, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Transfer" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+}
+<div>
+    @Html.ActionLink("Back to Overview", "Index", "Home")
+</div>
+

@@ -72,9 +72,10 @@
                     @Html.DisplayFor(modelItem => item.AccountType.TypeName)
                 </td>
                 <td>
-                    @Html.ActionLink("Withdraw", "Withdraw","Accounts", new { id = item.AccountID },"") |
-                    @Html.ActionLink("Deposit", "Deposit", "Accounts", new { id = item.AccountID },"") |
-                    @Html.ActionLink("Delete", "Delete", "Accounts", new { id = item.AccountID },"")
+                    @Html.ActionLink("Withdraw", "Withdraw", "Accounts", new { id = item.AccountID }, "") |
+                    @Html.ActionLink("Deposit", "Deposit", "Accounts", new { id = item.AccountID }, "") |
+                    @Html.ActionLink("Transfer", "Transfer", "Home", new { id = item.AccountID }, "") |
+                    @Html.ActionLink("Delete", "Delete", "Accounts", new { id = item.AccountID }, "")
                 </td>
             </tr>
         }
